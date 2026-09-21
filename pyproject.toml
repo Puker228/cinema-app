@@ -1,0 +1,25 @@
+[project]
+name = "cinema-app"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [{ name = "danil", email = "danil@email.com" }]
+requires-python = ">=3.13"
+dependencies = [
+    "django>=6.1.1",
+]
+
+
+[dependency-groups]
+dev = ["ruff>=0.16.8"]
+
+[tool.ruff]
+extend-exclude = [
+    "staticfiles",
+    "media",
+    "migrations",
+]
+
+[tool.ruff.lint]
+select = ["I", "F401", "DJ", "B", "UP"]
+fixable = ["ALL"]
