@@ -5,6 +5,14 @@ from django.db.models import Q
 from django.db.models.functions import Now
 
 
+class TimestampMixin(models.Model):
+    created_at = models.DateTimeField(db_default=Now(), editable=False)
+    updated_at = models.DateTimeField(auto_now=True, db_default=Now())
+
+    class Meta:
+        abstract = True
+
+
 class AgeRating(models.IntegerChoices):
     ZERO = 0, "0+"
     SIX = 6, "6+"
@@ -13,7 +21,7 @@ class AgeRating(models.IntegerChoices):
     EIGHTEEN = 18, "18+"
 
 
-class Film(models.Model):
+class Film(TimestampMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=255, db_index=True)
     description = models.TextField(default="", blank=True)
@@ -45,7 +53,7 @@ class Film(models.Model):
         return self.title
 
 
-class Customer(models.Model):
+class Customer(TimestampMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     full_name = models.CharField(max_length=255)
     phone = models.CharField(max_length=20, unique=True, null=True, blank=True)
@@ -111,7 +119,7 @@ class SessionStatus(models.TextChoices):
     FINISHED = "finished", "Завершён"
 
 
-class Session(models.Model):
+class Session(TimestampMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     film = models.ForeignKey(
         "Film",
