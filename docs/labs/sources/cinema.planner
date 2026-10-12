@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<project name="Информационная система кинотеатра «Cinema App»" company="Учебный проект" manager="Руководитель проекта" phase="" project-start="20260907T000000Z" mrproject-version="2" calendar="1">
+  <properties/>
+  <phases/>
+  <calendars>
+    <day-types>
+      <day-type id="0" name="Working" description="A default working day"/>
+      <day-type id="1" name="Nonworking" description="A default non working day"/>
+      <day-type id="2" name="Use base" description="Use day from base calendar"/>
+    </day-types>
+    <calendar id="1" name="Default">
+      <default-week mon="0" tue="0" wed="0" thu="0" fri="0" sat="1" sun="1"/>
+      <overridden-day-types>
+        <overridden-day-type id="0">
+          <interval start="0800" end="1200"/>
+          <interval start="1300" end="1700"/>
+        </overridden-day-type>
+      </overridden-day-types>
+      <days/>
+    </calendar>
+  </calendars>
+  <tasks>
+    <task id="1" name="Анализ требований и разработка ТЗ" note="" work="288000" start="20260907T000000Z" end="20260918T170000Z" work-start="20260907T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+    </task>
+    <task id="2" name="Проектирование (модели данных, IDEF0/DFD, архитектура, UML)" note="" work="288000" start="20260921T000000Z" end="20261002T170000Z" work-start="20260921T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="1" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="3" name="Реализация (Django-модели, представления, шаблоны)" note="" work="720000" start="20261005T000000Z" end="20261106T170000Z" work-start="20261005T080000Z" percent-complete="40" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="2" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="4" name="Тестирование и отладка" note="" work="288000" start="20261109T000000Z" end="20261120T170000Z" work-start="20261109T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="3" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="5" name="Внедрение (развёртывание на сервере)" note="" work="144000" start="20261123T000000Z" end="20261127T170000Z" work-start="20261123T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="4" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="6" name="Сопровождение и документирование" note="" work="288000" start="20261130T000000Z" end="20261211T170000Z" work-start="20261130T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="5" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="7" name="Сдача проекта" note="" work="0" start="20261211T170000Z" end="20261211T170000Z" work-start="20261211T170000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="6" type="FS"/>
+      </predecessors>
+    </task>
+  </tasks>
+  <resource-groups/>
+  <resources>
+    <resource id="1" name="Аналитик" short-name="" type="1" units="0" email="" note="Сбор требований, ТЗ, модели" std-rate="0"/>
+    <resource id="2" name="Разработчик" short-name="" type="1" units="0" email="" note="Python/Django" std-rate="0"/>
+    <resource id="3" name="Тестировщик" short-name="" type="1" units="0" email="" note="Тестирование" std-rate="0"/>
+  </resources>
+  <allocations>
+    <allocation task-id="1" resource-id="1" units="100"/>
+    <allocation task-id="2" resource-id="1" units="100"/>
+    <allocation task-id="3" resource-id="2" units="100"/>
+    <allocation task-id="4" resource-id="3" units="100"/>
+    <allocation task-id="5" resource-id="2" units="100"/>
+    <allocation task-id="6" resource-id="1" units="100"/>
+  </allocations>
+</project>

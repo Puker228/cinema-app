@@ -1,0 +1,113 @@
+@startuml
+skinparam dpi 150
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam defaultFontName DejaVu Sans
+skinparam classFontStyle bold
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #333333
+  ArrowColor #333333
+}
+skinparam packageStyle rectangle
+hide empty members
+
+package "main.models" {
+abstract class TimestampMixin <<models.Model>> {
+  +created_at : DateTimeField
+  +updated_at : DateTimeField
+}
+
+enum AgeRating <<IntegerChoices>> {
+  ZERO = 0 «0+»
+  SIX = 6 «6+»
+  TWELVE = 12 «12+»
+  SIXTEEN = 16 «16+»
+  EIGHTEEN = 18 «18+»
+}
+
+enum SessionStatus <<TextChoices>> {
+  SCHEDULED «Запланирован»
+  CANCELLED «Отменён»
+  FINISHED «Завершён»
+}
+
+class Film {
+  +id : UUID {PK}
+  +title : str [255]
+  +description : str
+  +duration_minutes : int {> 0}
+  +age_rating : AgeRating
+  +release_date : date [0..1]
+  +country : str [2]
+  +director : str [255]
+  +is_active : bool = True
+  +__str__() : str
+}
+
+class Genre <<models.Model>> {
+  +id : UUID {PK}
+  +name : str [50] {unique}
+  +__str__() : str
+}
+
+class Hall <<models.Model>> {
+  +id : UUID {PK}
+  +name : str [100] {unique}
+  +description : str
+  +is_active : bool = True
+  +__str__() : str
+}
+
+class Seat <<models.Model>> {
+  +id : UUID {PK}
+  +row_number : int {> 0}
+  +seat_number : int {> 0}
+  +__str__() : str
+}
+
+class Session {
+  +id : UUID {PK}
+  +start_time : datetime
+  +price : Decimal {>= 0}
+  +status : SessionStatus
+  +__str__() : str
+}
+
+class Customer {
+  +id : UUID {PK}
+  +full_name : str [255]
+  +phone : str [0..1] {unique}
+  +email : str [0..1] {unique}
+  +__str__() : str
+}
+
+class TicketStatus <<models.Model>> {
+  +id : UUID {PK}
+  +name : str [50] {unique}
+  +__str__() : str
+}
+
+class Ticket <<models.Model>> {
+  +id : UUID {PK}
+  +price : Decimal {>= 0}
+  +purchased_at : datetime
+  +__str__() : str
+}
+}
+
+TimestampMixin <|-- Film
+TimestampMixin <|-- Session
+TimestampMixin <|-- Customer
+
+Film "0..*" -- "1..*" Genre : genres >
+Hall "1" *-- "0..*" Seat : seats >
+Film "1" -- "0..*" Session : sessions >
+Hall "1" -- "0..*" Session : sessions >
+Session "1" -- "0..*" Ticket : tickets >
+Seat "1" -- "0..*" Ticket
+Customer "0..1" -- "0..*" Ticket : tickets >
+TicketStatus "1" -- "0..*" Ticket : tickets >
+Film ..> AgeRating
+Session ..> SessionStatus
+@enduml
